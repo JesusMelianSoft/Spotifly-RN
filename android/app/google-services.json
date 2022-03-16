@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "244439246283",
+    "project_id": "loginfirebase-90112",
+    "storage_bucket": "loginfirebase-90112.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244439246283:android:c578cec7df89335b49024e",
+        "android_client_info": {
+          "package_name": "com.spotiflyrn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244439246283-jsi7bf6f3a0k6422i76cdgd0ok9rluvm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.spotiflyrn",
+            "certificate_hash": "1f2569568447faab216a4a667192ffcdb3e5b0f8"
+          }
+        },
+        {
+          "client_id": "244439246283-kla7jccifhs8iekmg0nusd5h2iqqh1dd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVFpu1lCa9ylfD98H8FlkDUicN-a77GCI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244439246283-kla7jccifhs8iekmg0nusd5h2iqqh1dd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
