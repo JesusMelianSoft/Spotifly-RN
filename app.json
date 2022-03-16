@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "Spotifly-RN",
+    "slug": "Spotifly-RN",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "Spotifly-RN"
+}
