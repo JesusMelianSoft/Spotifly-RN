@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useState} from 'react';
+import auth from '@react-native-firebase/auth';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
@@ -8,31 +9,44 @@ GoogleSignin.configure({
 });
 
 export default function App() {
+  const [user, setUser] = useState(null);
 
   const signIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      console.log(userInfo)
-    } catch (error) {
-      console.log("MY ERROR",error)
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log("El usuario ha cancelado");
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log("SIGUE CARGANDO")
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log("HAY QUE ACTUALIZAR EL GOOGLE PLAy")
-      } else {
-        console.log(" Ha ocurrido un error inesperado")
-      }
-    }
+    // Get the users ID token
+  const { idToken } = await GoogleSignin.signIn();
+
+  // Create a Google credential with the token
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+  // Sign-in the user with the credential
+  const res = await auth().signInWithCredential(googleCredential);
+  const accessToken = await (await GoogleSignin.getTokens()).accessToken;
+
+  const currentUser = await GoogleSignin.getCurrentUser();
+  setUser(currentUser.user);
+  console.log(currentUser.user);
   };
+
+  const signOut = async() => {
+    try{
+      console.log("SIGN OUT");
+      await GoogleSignin.signOut();
+      setUser(null);
+    }catch(error){
+      console.log("NO SE PUEDE CERRAR LA SESIÓN")
+    }
+  }
 
   return (
     <View style={styles.container}>
       <Button
       title="Google Sign-In"
       onPress={() => signIn()}
+    />
+
+<Button
+      title="Google Sign-Out"
+      onPress={() => signOut()}
     />
     </View>
   );
