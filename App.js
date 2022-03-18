@@ -12,20 +12,36 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   const signIn = async () => {
-    // Get the users ID token
-  const { idToken } = await GoogleSignin.signIn();
+      // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
 
-  // Create a Google credential with the token
-  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-  // Sign-in the user with the credential
-  const res = await auth().signInWithCredential(googleCredential);
-  const accessToken = await (await GoogleSignin.getTokens()).accessToken;
+    // Sign-in the user with the credential
+    const res = await auth().signInWithCredential(googleCredential);
+    const accessToken = await (await GoogleSignin.getTokens()).accessToken;
 
-  const currentUser = await GoogleSignin.getCurrentUser();
-  setUser(currentUser.user);
-  console.log(currentUser.user);
+    const currentUser = await GoogleSignin.getCurrentUser();
+    setUser(currentUser.user);
+    console.log(currentUser.user);
   };
+
+  //const auth = getAuth();
+  const createUser = (email, password) => {
+    auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      console.log("USER REGISTERED CORRECTLY")
+      const user = userCredential.user;
+      console.log(user);
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+  }
 
   const signOut = async() => {
     try{
@@ -47,6 +63,11 @@ export default function App() {
 <Button
       title="Google Sign-Out"
       onPress={() => signOut()}
+    />
+
+<Button
+      title="register Email/Password"
+      onPress={() => createUser("pepe@gmail.com", "12345678")}
     />
     </View>
   );
