@@ -43,6 +43,21 @@ export default function App() {
     });
   }
 
+  const signInEmailAndPassword = (email, password) => {
+    console.log("CLICK SIGN IN")
+    auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      console.log(user)
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+  }
+
   const signOut = async() => {
     try{
       console.log("SIGN OUT");
@@ -67,7 +82,12 @@ export default function App() {
 
 <Button
       title="register Email/Password"
-      onPress={() => createUser("pepe@gmail.com", "12345678")}
+      onPress={() => createUser("ruben@gmail.com", "12345678")}
+    />
+
+<Button
+      title="Login email/password"
+      onPress={() => signInEmailAndPassword("pepe@gmail.com", "12345678")}
     />
     </View>
   );
