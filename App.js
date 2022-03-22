@@ -1,17 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import auth from '@react-native-firebase/auth';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import Login from './Components/Login'
 
 GoogleSignin.configure({
   webClientId: '244439246283-kla7jccifhs8iekmg0nusd5h2iqqh1dd.apps.googleusercontent.com',
 });
 
 export default function App() {
-  const [user, setUser] = useState(null);
-
-  const signIn = async () => {
+  const initialUser = {
+    email: "",
+    password: "",
+    type: null
+  }
+  const [user, setUser] = useState(initialUser);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [dark, setDark] = useState(false);
+  const signInGoogle = async () => {
       // Get the users ID token
     const { idToken } = await GoogleSignin.signIn();
 
@@ -32,8 +40,8 @@ export default function App() {
     auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       console.log("USER REGISTERED CORRECTLY")
-      const user = userCredential.user;
-      console.log(user);
+      const userEmailAndPass = userCredential.user;
+      console.log(userEmailAndPass);
       // ...
     })
     .catch((error) => {
@@ -69,34 +77,27 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Button
-      title="Google Sign-In"
-      onPress={() => signIn()}
-    />
-
-<Button
-      title="Google Sign-Out"
-      onPress={() => signOut()}
-    />
-
-<Button
-      title="register Email/Password"
-      onPress={() => createUser("ruben@gmail.com", "12345678")}
-    />
-
-<Button
-      title="Login email/password"
-      onPress={() => signInEmailAndPassword("pepe@gmail.com", "12345678")}
-    />
-    </View>
+      dark ? 
+        <View style={styles.containerDark} signInGoogle={signInGoogle}>
+          <Login dark={dark}/>
+        </View>
+      :
+        <View style={styles.containerLight}>
+          <Login signInGoogle={signInGoogle}/>
+        </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerLight: {
     flex: 1,
     backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerDark: {
+    flex: 1,
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
   },
