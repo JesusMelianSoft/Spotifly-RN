@@ -3,11 +3,15 @@ import React, {useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import Login from './Components/Login'
+import Login from './Components/Login';
+import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from './Components/HomeScreen';
 
 GoogleSignin.configure({
   webClientId: '244439246283-kla7jccifhs8iekmg0nusd5h2iqqh1dd.apps.googleusercontent.com',
 });
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const initialUser = {
@@ -77,14 +81,12 @@ export default function App() {
   }
 
   return (
-      dark ? 
-        <View style={styles.containerDark} signInGoogle={signInGoogle}>
-          <Login dark={dark}/>
-        </View>
-      :
-        <View style={styles.containerLight}>
-          <Login signInGoogle={signInGoogle}/>
-        </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
