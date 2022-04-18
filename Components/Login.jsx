@@ -1,9 +1,12 @@
 import { Button, View, Text, TouchableOpacity, StyleSheet} from 'react-native'
-import React, {useState} from 'react'
+import React, {useState} from 'react';
+import Slider from '@react-native-community/slider';
 import InputText from './InputText'
 import ButtonGoogle from './ButtonGoogle';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+const {signInGoogle, signInEmailAndPassword} = require('../Config/accessFunctions')
 
-const Login = ({setLogin, signInGoogle}) => {
+const Login = ({navigation, setLogin}) => {
     const [dark, setDark] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,6 +18,12 @@ const Login = ({setLogin, signInGoogle}) => {
     const changePass = (pass) => {
       setPassword(pass);
   }
+
+  //ACCESO CON USUARIO Y CONTRASEÑA
+  const signIn = async(email, password) => {
+    console.log("DEVUELVO: ", await signInEmailAndPassword(email, password))
+  }
+  
   return (
     dark ?
       <View style={styles.containerDark}>
@@ -35,7 +44,7 @@ const Login = ({setLogin, signInGoogle}) => {
             <InputText placeholder={"Inserte una Contraseña"} secureTextEntry={true} dark={dark} onChangeText={changePass} typePassword={true}/>
           </View>
           <View style={styles.btnLogin}>
-            <TouchableOpacity onPress={() => {signInEmailAndPassword(email, password)}}>
+            <TouchableOpacity onPress={() => {signIn(email, password)}}>
               <Text style={styles.text}>ENTRAR</Text>
             </TouchableOpacity>
           </View>
@@ -59,7 +68,6 @@ const Login = ({setLogin, signInGoogle}) => {
             <TouchableOpacity onPress={() => {
                                         navigation.navigate('Register', {
                                           dark: dark,
-                                          signInGoogle: signInGoogle,
                                         });
                                       }}
             >
@@ -87,7 +95,7 @@ const Login = ({setLogin, signInGoogle}) => {
           <InputText placeholder={"Inserte una Contraseña"} secureTextEntry={true} dark={dark} onChangeText={changePass} typePassword={true}/>
         </View>
         <View style={styles.btnLogin}>
-          <TouchableOpacity onPress={() => {signInEmailAndPassword(email, password)}}>
+          <TouchableOpacity onPress={() => {signIn(email, password)}}>
             <Text style={styles.text}>ENTRAR</Text>
           </TouchableOpacity>
         </View>
@@ -111,7 +119,6 @@ const Login = ({setLogin, signInGoogle}) => {
           <TouchableOpacity onPress={() => {
                                         navigation.navigate('Register', {
                                           dark: dark,
-                                          signInGoogle: signInGoogle,
                                         });
                                       }}>
             <Text style={styles.text}>REGISTRAR</Text>

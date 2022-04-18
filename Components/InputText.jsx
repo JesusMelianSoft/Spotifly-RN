@@ -13,7 +13,7 @@ const InputText = ({placeholder, secureTextEntry, dark, onChangeText, typePasswo
     <View>
         {dark ?
             <View style={styles.darkMode}>
-                <TextInput placeholder={placeholder} secureTextEntry={secureTextEntry} onChangeText={changeText}>{text}</TextInput>
+                <TextInput placeholder={placeholder} secureTextEntry={view} onChangeText={changeText}>{text}</TextInput>
                 {typePassword ?
                     <Image
                     source={require('../assets/images/ico-pass.png')} //Change your icon image here

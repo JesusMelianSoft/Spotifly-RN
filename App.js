@@ -2,13 +2,15 @@ import React, {useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import Login from './Components/Login'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-GoogleSignin.configure({
-  webClientId: '244439246283-kla7jccifhs8iekmg0nusd5h2iqqh1dd.apps.googleusercontent.com',
-});
+import Login from './Components/Login'
+import Register from './Components/Register'
+import HomeScreen from './Components/HomeScreen'
+
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const initialUser = {
@@ -78,8 +80,11 @@ export default function App() {
   }
 
   return (
+    // <View>
+    //   <Button title="SignIn" onPress={() => signInEmailAndPassword("luis222222@mail.com", "12345678")} />
+    // </View>
   <NavigationContainer>
-    <Stack.Navigator >
+    <Stack.Navigator initialRoute={Login}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Register" component={Register} />
