@@ -16,31 +16,115 @@ const Login = ({setLogin, signInGoogle}) => {
       setPassword(pass);
   }
   return (
-    <View style={styles.input}>
-      <View>
-          <InputText placeholder={"Inserte un Email"} dark={dark} onChangeText={changeEmail} />
+    dark ?
+      <View style={styles.containerDark}>
+        <View style={styles.input}>
+          <View style={styles.slider}>
+            <Slider minimumValue={0} 
+            maxValue={1} 
+            step={1} 
+            thumbTintColor={'#9775CD'} 
+            maximumTrackTintColor={'#CE14BC'} 
+            minimumTrackTintColor={'#CE14BC'}
+            onValueChange={() => setDark(!dark)}/>
+          </View>
+          <View>
+              <InputText placeholder={"Inserte un Email"} dark={dark} onChangeText={changeEmail} />
+          </View>
+          <View>
+            <InputText placeholder={"Inserte una Contraseña"} secureTextEntry={true} dark={dark} onChangeText={changePass} typePassword={true}/>
+          </View>
+          <View style={styles.btnLogin}>
+            <TouchableOpacity onPress={() => {signInEmailAndPassword(email, password)}}>
+              <Text style={styles.text}>ENTRAR</Text>
+            </TouchableOpacity>
+          </View>
+          {/* LINEA */}
+          <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
+            <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+            <View>
+              <Text style={{width: 30, textAlign: 'center'}}>o</Text>
+            </View>
+            <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+          </View>
+        
+          <ButtonGoogle signIn={signInGoogle} />
+        
+          <View style={{width: '100%', textAlign: 'center', backgroundColor: '#000', height: 1, top: '70%'}}></View>
+          <View style={{width: '100%', textAlign: 'center', backgroundColor: '#000', height: 1, top: '70%'}}></View>
+          <View style={styles.register}>
+            <Text>¿No tienes cuenta?</Text>
+          </View>
+          <View style={styles.btnLogin}>
+            <TouchableOpacity onPress={() => {
+                                        navigation.navigate('Register', {
+                                          dark: dark,
+                                          signInGoogle: signInGoogle,
+                                        });
+                                      }}
+            >
+              <Text style={styles.text}>REGISTRAR</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-      <View>
-        <InputText placeholder={"Inserte una Contraseña"} secureTextEntry={true} dark={dark} onChangeText={changePass} typePassword={true}/>
-      </View>
-      <View style={styles.btnLogin}>
-        <TouchableOpacity onPress={() => {signIn(email, password)}}>
-          <Text style={styles.text}>ENTRAR</Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <Text>_________________  _______________</Text>
-      </View>
-      <ButtonGoogle signIn={signInGoogle} />
+    : 
+    <View style={styles.containerLight}>
+      <View style={styles.input}>
+        <View style={styles.slider}>
+          <Slider minimumValue={0} 
+          maxValue={1} 
+          step={1} 
+          thumbTintColor={'#9775CD'} 
+          maximumTrackTintColor={'#CE14BC'} 
+          minimumTrackTintColor={'#CE14BC'}
+          onValueChange={() => setDark(!dark)}/>
+        </View>
+        <View>
+            <InputText placeholder={"Inserte un Email"} dark={dark} onChangeText={changeEmail} />
+        </View>
+        <View>
+          <InputText placeholder={"Inserte una Contraseña"} secureTextEntry={true} dark={dark} onChangeText={changePass} typePassword={true}/>
+        </View>
+        <View style={styles.btnLogin}>
+          <TouchableOpacity onPress={() => {signInEmailAndPassword(email, password)}}>
+            <Text style={styles.text}>ENTRAR</Text>
+          </TouchableOpacity>
+        </View>
+        {/* LINEA */}
+        <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
+          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+          <View>
+            <Text style={{width: 30, textAlign: 'center'}}>o</Text>
+          </View>
+          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+        </View>
       
+        <ButtonGoogle signIn={signInGoogle} />
       
+        <View style={{width: '100%', textAlign: 'center', backgroundColor: '#000', height: 1, top: '70%'}}></View>
+        <View style={{width: '100%', textAlign: 'center', backgroundColor: '#000', height: 1, top: '70%'}}></View>
+        <View style={styles.register}>
+          <Text>¿No tienes cuenta?</Text>
+        </View>
+        <View style={styles.btnLogin}>
+          <TouchableOpacity onPress={() => {
+                                        navigation.navigate('Register', {
+                                          dark: dark,
+                                          signInGoogle: signInGoogle,
+                                        });
+                                      }}>
+            <Text style={styles.text}>REGISTRAR</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   input: {
-    width: '80%',
+    width: '90%',
     margin: 10
   },
   btnLogin: {
@@ -54,6 +138,36 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-  }
+  },
+  slider: {
+    position: 'absolute',
+    // backgroundColor: '#000',
+    width: '20%',
+    height: 20,
+    top: -40,
+    right: 40,
+    borderColor: '#9775CD', 
+    borderWidth: 1,
+    borderRadius: 10
+  },
+  register: {
+    width: '100%', 
+    textAlign: 'center', 
+    backgroundColor: '#000', 
+    height: 1, 
+    top: '70%'
+  },
+  containerLight: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerDark: {
+    flex: 1,
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })
 export default Login
