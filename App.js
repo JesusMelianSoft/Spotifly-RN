@@ -1,15 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
-import auth from '@react-native-firebase/auth';
+import {useState} from 'react'
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import Login from './Components/Login';
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './Components/HomeScreen';
+import Register from './Components/Register'
 
-GoogleSignin.configure({
-  webClientId: '244439246283-kla7jccifhs8iekmg0nusd5h2iqqh1dd.apps.googleusercontent.com',
-});
+
 
 const Stack = createNativeStackNavigator();
 
@@ -23,37 +22,10 @@ export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dark, setDark] = useState(false);
-  const signInGoogle = async () => {
-      // Get the users ID token
-    const { idToken } = await GoogleSignin.signIn();
-
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-    // Sign-in the user with the credential
-    const res = await auth().signInWithCredential(googleCredential);
-    const accessToken = await (await GoogleSignin.getTokens()).accessToken;
-
-    const currentUser = await GoogleSignin.getCurrentUser();
-    setUser(currentUser.user);
-    console.log(currentUser.user);
-  };
+  
 
   //const auth = getAuth();
-  const createUser = (email, password) => {
-    auth().createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      console.log("USER REGISTERED CORRECTLY")
-      const userEmailAndPass = userCredential.user;
-      console.log(userEmailAndPass);
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
-  }
+  
 
   const signInEmailAndPassword = (email, password) => {
     console.log("CLICK SIGN IN")
@@ -81,12 +53,14 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    
+      <NavigationContainer>
+        <Stack.Navigator >
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Register" component={Register} />
+        </Stack.Navigator>
+      </NavigationContainer>
   );
 }
 
