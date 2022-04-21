@@ -86,7 +86,12 @@ export default function App() {
   <NavigationContainer>
     <Stack.Navigator initialRoute={Login}>
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Home" component={HomeScreen} />
+      {/* EN LAS OPCIONES DESHABILITO DARLE HACIA ATRAS */}
+      <Stack.Screen name="Home" component={HomeScreen} options={{
+            gestureEnabled: false,
+            headerShown: false,
+            headerLeft: () => <></>,
+          }}/>
       <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
   </NavigationContainer>

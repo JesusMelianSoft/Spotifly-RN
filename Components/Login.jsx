@@ -1,15 +1,23 @@
 import { Button, View, Text, TouchableOpacity, StyleSheet} from 'react-native'
-import React, {useState} from 'react';
+import auth from '@react-native-firebase/auth';
+import React, {useState, useEffect} from 'react';
 import Slider from '@react-native-community/slider';
 import InputText from './InputText'
 import ButtonGoogle from './ButtonGoogle';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-const {signInGoogle, signInEmailAndPassword} = require('../Config/accessFunctions')
+
+
+//CONFIGURAR GOOGLE
+GoogleSignin.configure({
+  webClientId: '244439246283-kla7jccifhs8iekmg0nusd5h2iqqh1dd.apps.googleusercontent.com',
+});
 
 const Login = ({navigation, setLogin}) => {
     const [dark, setDark] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [user, setUser] = useState();
+    
 
     const changeEmail = (email) => {
         setEmail(email);
@@ -20,10 +28,65 @@ const Login = ({navigation, setLogin}) => {
   }
 
   //ACCESO CON USUARIO Y CONTRASEÑA
-  const signIn = async(email, password) => {
-    console.log("DEVUELVO: ", await signInEmailAndPassword(email, password))
+//ENTRAR CON EMAIL Y PASS
+const signInEmailAndPassword = () => {
+  console.log("CLICK SIGN IN")
+  auth().signInWithEmailAndPassword(email, password)
+  .then((userCredential) => {
+      
+    // Signed in
+    const user = userCredential.user;
+    console.log("User: ",user)
+    if(user){
+      setUser(user)
+    }
+  })
+  .catch((error) => {
+    return false
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
+}
+
+const signIn = () => {
+  signInEmailAndPassword(email, password)
+  navigateToHome()
+}
+
+const navigateToHome = () => {
+
+  if(user){
+    navigation.navigate('Home', {
+      user,
+    });
   }
   
+}
+useEffect(() => {
+  if(user){
+    navigateToHome();
+  }
+}, [user])
+
+//ENTRAR CON GOOGLE 
+const signInGoogle = async () => {
+  // Get the users ID token
+  const { idToken } = await GoogleSignin.signIn();
+
+  // Create a Google credential with the token
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+  // Sign-in the user with the credential
+  const res = await auth().signInWithCredential(googleCredential);
+  const accessToken = await (await GoogleSignin.getTokens()).accessToken;
+
+  const currentUser = await GoogleSignin.getCurrentUser();
+  //setUser(currentUser.user);
+  console.log(res.additionalUserInfo.profile);
+  setUser(res.additionalUserInfo.profile)
+  navigateToHome()
+};
+
   return (
     dark ?
       <View style={styles.containerDark}>

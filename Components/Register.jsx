@@ -20,15 +20,6 @@ const Register = ({route, navigation}) => {
             console.log("COMPROBACIÓN CORRECTA")
             createUser(email, password);
             setMsg("Su usuario se ha registrado correctamente!");
-            navigation.navigate('Home')
-            // if(createUser(email, password){
-            //     console.log("DEVUELVO TRUE EN CREATE USER");
-            //     setMsg("")
-            //     setMsg("Su usuario se ha registrado correctamente!");
-            // }else{
-            //     setMsg("")
-            //     setMsg("Su dirección de correo ya esta en uso")
-            // }
             
         }else{
             setMsg("")

@@ -1,10 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const HomeScreen = () => {
+const HomeScreen = ({route, navigation}) => {
+  const {user} = route.params;
+  console.log("MI USUARIO: ",user);
   return (
     <View>
-      <Text>HomeScreen</Text>
+      <Text>{"Hola!, "+user.email}</Text>
     </View>
   )
 }

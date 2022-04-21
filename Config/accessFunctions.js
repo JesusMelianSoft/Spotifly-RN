@@ -1,6 +1,9 @@
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import {useState} from 'react';
+var RNFS = require('react-native-fs');
+ // create a path you want to write to
+const PATH = RNFS.DocumentDirectoryPath + '/user.json';
 
 //CONFIGURAR GOOGLE
 GoogleSignin.configure({
@@ -15,17 +18,39 @@ const signInEmailAndPassword = (email, password) => {
         
       // Signed in
       const user = userCredential.user;
-      console.log(user)
-      return user
-      
-      // ...
+      console.log("User: ",user)
+      if(user){
+        console.log("USUARIO:" , user);
+        return user
+      }
     })
     .catch((error) => {
-        return false
+      return false
       const errorCode = error.code;
       const errorMessage = error.message;
     });
   }
+
+// //CREO EL ARCHIVO.json con el usuario
+// const writeFile = (content, unicode = 'utf8') => {
+//   console.log(PATH)
+//   RNFS.writeFile(PATH, content, unicode)
+//       .then(result => {
+//           console.log(result, 'Escritura exitosa en archivo local !!');
+//       }).catch((error) => {
+//         console.log(error);
+//       });
+// };
+
+
+// const readFile = () => {
+//   RNFS.readFileAssets(PATH, 'utf8')
+//   .then(result => {
+//     console.log(result, "lectura correcta")
+//   }).catch((error) => {
+//     console.log(error)
+//   })
+// }
 
   //ENTRAR CON GOOGLE 
   const signInGoogle = async () => {
