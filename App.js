@@ -99,16 +99,16 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  containerLight: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  containerDark: {
-    flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  // containerLight: {
+  //   flex: 1,
+  //   backgroundColor: '#fff',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // },
+  // containerDark: {
+  //   flex: 1,
+  //   backgroundColor: '#000',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // },
 });

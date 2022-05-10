@@ -2,41 +2,43 @@ const defaultPlayList = [
     {
         id: 1,
         title: 'TOP HITS ESPAÑA',
-        image: ''
+        image: '../assets/images/topspain.png'
     },
     {
         id: 2,
         title: 'TOP HITS EUROPA',
-        image: ''
+        image: '../assets/images/topspain.png'
     },
     {
         id: 3,
         title: 'GLOBAL HITS',
-        image: ''
+        image: '../assets/images/topspain.png'
     },
     {
         id: 4,
         title: 'ENTRENAMIENTO',
-        image: ''
+        image: '../assets/images/topspain.png'
     },
     {
         id: 5,
         title: 'ESTUDIAR',
-        image: ''
+        image: '../assets/images/topspain.png'
     },
     {
         id: 6,
         title: 'YOGA',
-        image: ''
+        image: '../assets/images/topspain.png'
     },
     {
         id: 7,
         title: 'ROCK',
-        image: ''
+        image: '../assets/images/topspain.png'
     },
     {
         id: 8,
         title: 'TOP POP',
-        image: ''
+        image: '../assets/images/topspain.png'
     },
 ]
+
+export default {defaultPlayList};
