@@ -2,42 +2,42 @@ const defaultPlayList = [
     {
         id: 1,
         title: 'TOP HITS ESPAÑA',
-        image: '../assets/images/topspain.png'
+        image: require('../assets/images/topspain.png'),
     },
     {
         id: 2,
         title: 'TOP HITS EUROPA',
-        image: '../assets/images/topspain.png'
+        image: require('../assets/images/topeuropa.jpg')
     },
     {
         id: 3,
         title: 'GLOBAL HITS',
-        image: '../assets/images/topspain.png'
+        image: require('../assets/images/world.png')
     },
     {
         id: 4,
         title: 'ENTRENAMIENTO',
-        image: '../assets/images/topspain.png'
+        image: require('../assets/images/training.jpg')
     },
     {
         id: 5,
         title: 'ESTUDIAR',
-        image: '../assets/images/topspain.png'
+        image: require('../assets/images/study.jpg')
     },
     {
         id: 6,
         title: 'YOGA',
-        image: '../assets/images/topspain.png'
+        image: require('../assets/images/yoga.jpg')
     },
     {
         id: 7,
         title: 'ROCK',
-        image: '../assets/images/topspain.png'
+        image: require('../assets/images/rock.png')
     },
     {
         id: 8,
         title: 'TOP POP',
-        image: '../assets/images/topspain.png'
+        image: require('../assets/images/pop.png')
     },
 ]
 

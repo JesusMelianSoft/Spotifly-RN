@@ -1,21 +1,25 @@
 import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 
-const ViewPlayList = ({title, key, id, image}) => {
+const ViewPlayList = ({title, key, id, image, onNavigate}) => {
     console.log(image);
-    //const miImagen = '../assets/image/topspain.png';
-    const miImagen = require('../assets/images/topspain.png');
+    //const miImagen = require('../assets/image/topspain.png';
+    // const miImagen = require(require('../assets/images/topspain.png');
     //console.log("CARGO PLAYLIST: ", playList);
 
-    const handleClickPlayList = (id) => {
-        console.log("HAS PULSADO: ",id)
-    }
+    // const handleClickPlayList = (id) => {
+    //     console.log("HAS PULSADO: ",id)
+    //     navigation.navigate('musicList', {
+    //         dark: dark,
+    //         title: title,
+    //       });
+    // }
   return (
-    <TouchableOpacity style={styles.card} onPress={() => {handleClickPlayList(id)}}>
+    <TouchableOpacity style={styles.card} onPress={() => {onNavigate(title)}}>
         <View key={key}>
             <Image
             style={{ width: 100, height: 100, marginBottom: 15 }}
-            source={miImagen}
+            source={image}
             />
             <Text>{title}</Text>
         </View>

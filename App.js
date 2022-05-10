@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './Components/Login'
 import Register from './Components/Register'
 import HomeScreen from './Components/HomeScreen'
-
+import MusicList from './Components/MusicList'
 
 const Stack = createNativeStackNavigator();
 
@@ -88,6 +88,11 @@ export default function App() {
       <Stack.Screen name="Login" component={Login} />
       {/* EN LAS OPCIONES DESHABILITO DARLE HACIA ATRAS */}
       <Stack.Screen name="Home" component={HomeScreen} options={{
+            gestureEnabled: false,
+            headerShown: false,
+            headerLeft: () => <></>,
+          }}/>
+      <Stack.Screen name="MusicList" component={MusicList} options={{
             gestureEnabled: false,
             headerShown: false,
             headerLeft: () => <></>,

@@ -17,6 +17,18 @@ const HomeScreen = ({route, navigation}) => {
   }
   const {user} = route.params;
 
+  //NAVEGAR A LA PESTAÑA QUE CONTIENE LA LISTA DE CANCIONES
+  const handleNavigateToListMusic = (title) => {
+    console.log("NAVEGAMOS CON TITULO: ", title)
+    if(music){
+      navigation.navigate('MusicList', {
+        title: title,
+        music: music
+      });
+    }
+    
+  }
+
   useEffect(() => {
     getPlayList();
     //console.log(playList.defaultPlayList)
@@ -37,7 +49,7 @@ const HomeScreen = ({route, navigation}) => {
               id={id}
               image={image}
                 // value={value} 
-                // onDelete={() => handleRemoveProduct(id)} 
+              onNavigate={handleNavigateToListMusic} 
               />
             )
           }
