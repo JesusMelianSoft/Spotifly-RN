@@ -9,6 +9,7 @@ import Login from './Components/Login'
 import Register from './Components/Register'
 import HomeScreen from './Components/HomeScreen'
 import MusicList from './Components/MusicList'
+import ViewPlayList from './Components/ViewPlayList'
 
 const Stack = createNativeStackNavigator();
 
@@ -92,11 +93,8 @@ export default function App() {
             headerShown: false,
             headerLeft: () => <></>,
           }}/>
-      <Stack.Screen name="MusicList" component={MusicList} options={{
-            gestureEnabled: false,
-            headerShown: false,
-            headerLeft: () => <></>,
-          }}/>
+      <Stack.Screen name="MusicList" component={MusicList} />
+      <Stack.Screen name="PlayList" component={ViewPlayList} />
       <Stack.Screen name="Register" component={Register} />
     </Stack.Navigator>
   </NavigationContainer>

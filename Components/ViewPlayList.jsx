@@ -1,6 +1,6 @@
 import { Image, View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
-
+import Navbar from './Navbar';
 const ViewPlayList = ({title, key, id, image, onNavigate}) => {
     console.log(image);
     //const miImagen = require('../assets/image/topspain.png';
@@ -24,6 +24,7 @@ const ViewPlayList = ({title, key, id, image, onNavigate}) => {
             <Text>{title}</Text>
         </View>
     </TouchableOpacity>
+
   )
 }
 
