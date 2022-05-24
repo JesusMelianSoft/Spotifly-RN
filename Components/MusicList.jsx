@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity, FlatList, StyleSheet} from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet} from 'react-native'
 import React,  {useState} from 'react'
 import ViewMusic from './ViewMusic';
 import Navbar from './Navbar';
@@ -23,15 +23,17 @@ const MusicList = ({route, navigation}) => {
     <View>
         <View style={styles.input}>
             <TextInput
-            style={styles.textSearch}
             onChangeText={(newText) => searchMusic(newText)}
             value={text}
             />
+<<<<<<< HEAD
             <Image
             style={{ width: 24, height: 24, alignSelf: 'flex-end'}}
             source={require('../assets/images/search.png')}
             />
 
+=======
+>>>>>>> parent of 5038155 (Features: adding styles from searchbar)
         </View>
         {title ?
         <Text style={styles.text}>{title}</Text>
@@ -53,6 +55,7 @@ const MusicList = ({route, navigation}) => {
 }
 
 const styles = StyleSheet.create({
+<<<<<<< HEAD
 
     textSearch: {
         width: '80%'
@@ -64,6 +67,9 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginLeft: 15
     },
+=======
+    
+>>>>>>> parent of 5038155 (Features: adding styles from searchbar)
     text: {
         color: "#AF16C8",
         fontSize: 30
@@ -71,6 +77,9 @@ const styles = StyleSheet.create({
         color: "#AF16C8",
         fontSize: 12
     },
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 5038155 (Features: adding styles from searchbar)
 })
 export default MusicList
