@@ -10,15 +10,9 @@
   },
   "dependencies": {
     "@firebase/auth": "^0.19.9",
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@react-native-community/slider": "4.1.12",
     "@react-native-firebase/app": "^14.5.1",
     "@react-native-firebase/auth": "^14.5.1",
     "@react-native-google-signin/google-signin": "^7.2.1",
-    "@react-navigation/native": "^6.0.10",
-    "@react-navigation/native-stack": "^6.6.1",
-    "axios": "^0.27.2",
     "expo": "~44.0.2",
     "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",
@@ -27,10 +21,6 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
-    "react-native-fs": "^2.19.0",
-    "react-native-safe-area-context": "3.3.2",
-    "react-native-screens": "~3.10.1",
-    "react-native-svg": "^12.3.0",
     "react-native-web": "0.17.1"
   },
   "devDependencies": {
