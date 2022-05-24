@@ -1,12 +1,23 @@
 import { Button, View, Text, TouchableOpacity, StyleSheet} from 'react-native'
-import React, {useState} from 'react'
+import auth from '@react-native-firebase/auth';
+import React, {useState, useEffect} from 'react';
+import Slider from '@react-native-community/slider';
 import InputText from './InputText'
 import ButtonGoogle from './ButtonGoogle';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
-const Login = ({setLogin, signInGoogle}) => {
+
+//CONFIGURAR GOOGLE
+GoogleSignin.configure({
+  webClientId: '244439246283-kla7jccifhs8iekmg0nusd5h2iqqh1dd.apps.googleusercontent.com',
+});
+
+const Login = ({navigation, setLogin}) => {
     const [dark, setDark] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [user, setUser] = useState();
+    
 
     const changeEmail = (email) => {
         setEmail(email);
@@ -15,32 +26,175 @@ const Login = ({setLogin, signInGoogle}) => {
     const changePass = (pass) => {
       setPassword(pass);
   }
+
+  //ACCESO CON USUARIO Y CONTRASEÑA
+//ENTRAR CON EMAIL Y PASS
+const signInEmailAndPassword = () => {
+  console.log("CLICK SIGN IN")
+  auth().signInWithEmailAndPassword(email, password)
+  .then((userCredential) => {
+      
+    // Signed in
+    const user = userCredential.user;
+    console.log("User: ",user)
+    if(user){
+      setUser(user)
+    }
+  })
+  .catch((error) => {
+    return false
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
+}
+
+const signIn = () => {
+  signInEmailAndPassword(email, password)
+  navigateToHome()
+}
+
+const navigateToHome = () => {
+
+  if(user){
+    navigation.navigate('Home', {
+      user,
+    });
+  }
+  
+}
+useEffect(() => {
+  if(user){
+    navigateToHome();
+  }
+}, [user])
+
+//ENTRAR CON GOOGLE 
+const signInGoogle = async () => {
+  // Get the users ID token
+  const { idToken } = await GoogleSignin.signIn();
+
+  // Create a Google credential with the token
+  const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+  // Sign-in the user with the credential
+  const res = await auth().signInWithCredential(googleCredential);
+  const accessToken = await (await GoogleSignin.getTokens()).accessToken;
+
+  const currentUser = await GoogleSignin.getCurrentUser();
+  //setUser(currentUser.user);
+  console.log(res.additionalUserInfo.profile);
+  setUser(res.additionalUserInfo.profile)
+  navigateToHome()
+};
+
   return (
-    <View style={styles.input}>
-      <View>
-          <InputText placeholder={"Inserte un Email"} dark={dark} onChangeText={changeEmail} />
+    dark ?
+      <View style={styles.containerDark}>
+        <View style={styles.input}>
+          <View style={styles.slider}>
+            <Slider minimumValue={0} 
+            maxValue={1} 
+            step={1} 
+            thumbTintColor={'#9775CD'} 
+            maximumTrackTintColor={'#CE14BC'} 
+            minimumTrackTintColor={'#CE14BC'}
+            onValueChange={() => setDark(!dark)}/>
+          </View>
+          <View>
+              <InputText placeholder={"Inserte un Email"} dark={dark} onChangeText={changeEmail} />
+          </View>
+          <View>
+            <InputText placeholder={"Inserte una Contraseña"} secureTextEntry={true} dark={dark} onChangeText={changePass} typePassword={true}/>
+          </View>
+          <View style={styles.btnLogin}>
+            <TouchableOpacity onPress={() => {signIn(email, password)}}>
+              <Text style={styles.text}>ENTRAR</Text>
+            </TouchableOpacity>
+          </View>
+          {/* LINEA */}
+          <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
+            <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+            <View>
+              <Text style={{width: 30, textAlign: 'center'}}>o</Text>
+            </View>
+            <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+          </View>
+        
+          <ButtonGoogle signIn={signInGoogle} />
+        
+          <View style={{width: '100%', textAlign: 'center', backgroundColor: '#000', height: 1, top: '70%'}}></View>
+          <View style={{width: '100%', textAlign: 'center', backgroundColor: '#000', height: 1, top: '70%'}}></View>
+          <View style={styles.register}>
+            <Text>¿No tienes cuenta?</Text>
+          </View>
+          <View style={styles.btnLogin}>
+            <TouchableOpacity onPress={() => {
+                                        navigation.navigate('Register', {
+                                          dark: dark,
+                                        });
+                                      }}
+            >
+              <Text style={styles.text}>REGISTRAR</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-      <View>
-        <InputText placeholder={"Inserte una Contraseña"} secureTextEntry={true} dark={dark} onChangeText={changePass} typePassword={true}/>
-      </View>
-      <View style={styles.btnLogin}>
-        <TouchableOpacity onPress={() => {signIn(email, password)}}>
-          <Text style={styles.text}>ENTRAR</Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <Text>_________________  _______________</Text>
-      </View>
-      <ButtonGoogle signIn={signInGoogle} />
+    : 
+    <View style={styles.containerLight}>
+      <View style={styles.input}>
+        <View style={styles.slider}>
+          <Slider minimumValue={0} 
+          maxValue={1} 
+          step={1} 
+          thumbTintColor={'#9775CD'} 
+          maximumTrackTintColor={'#CE14BC'} 
+          minimumTrackTintColor={'#CE14BC'}
+          onValueChange={() => setDark(!dark)}/>
+        </View>
+        <View>
+            <InputText placeholder={"Inserte un Email"} dark={dark} onChangeText={changeEmail} />
+        </View>
+        <View>
+          <InputText placeholder={"Inserte una Contraseña"} secureTextEntry={true} dark={dark} onChangeText={changePass} typePassword={true}/>
+        </View>
+        <View style={styles.btnLogin}>
+          <TouchableOpacity onPress={() => {signIn(email, password)}}>
+            <Text style={styles.text}>ENTRAR</Text>
+          </TouchableOpacity>
+        </View>
+        {/* LINEA */}
+        <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
+          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+          <View>
+            <Text style={{width: 30, textAlign: 'center'}}>o</Text>
+          </View>
+          <View style={{flex: 1, height: 1, backgroundColor: 'black'}} />
+        </View>
       
+        <ButtonGoogle signIn={signInGoogle} />
       
+        <View style={{width: '100%', textAlign: 'center', backgroundColor: '#000', height: 1, top: '70%'}}></View>
+        <View style={{width: '100%', textAlign: 'center', backgroundColor: '#000', height: 1, top: '70%'}}></View>
+        <View style={styles.register}>
+          <Text>¿No tienes cuenta?</Text>
+        </View>
+        <View style={styles.btnLogin}>
+          <TouchableOpacity onPress={() => {
+                                        navigation.navigate('Register', {
+                                          dark: dark,
+                                        });
+                                      }}>
+            <Text style={styles.text}>REGISTRAR</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   input: {
-    width: '80%',
+    width: '90%',
     margin: 10
   },
   btnLogin: {
@@ -54,6 +208,36 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
-  }
+  },
+  slider: {
+    position: 'absolute',
+    // backgroundColor: '#000',
+    width: '20%',
+    height: 20,
+    top: -40,
+    right: 40,
+    borderColor: '#9775CD', 
+    borderWidth: 1,
+    borderRadius: 10
+  },
+  register: {
+    width: '100%', 
+    textAlign: 'center', 
+    backgroundColor: '#000', 
+    height: 1, 
+    top: '70%'
+  },
+  containerLight: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerDark: {
+    flex: 1,
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 })
 export default Login
