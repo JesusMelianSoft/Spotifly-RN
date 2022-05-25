@@ -1,17 +1,13 @@
+import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
 import auth from '@react-native-firebase/auth';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import Login from './Components/Login'
-import Register from './Components/Register'
-import HomeScreen from './Components/HomeScreen'
-import MusicList from './Components/MusicList'
-import ViewPlayList from './Components/ViewPlayList'
 
-const Stack = createNativeStackNavigator();
+GoogleSignin.configure({
+  webClientId: '244439246283-kla7jccifhs8iekmg0nusd5h2iqqh1dd.apps.googleusercontent.com',
+});
 
 export default function App() {
   const initialUser = {
@@ -81,37 +77,28 @@ export default function App() {
   }
 
   return (
-    // <View>
-    //   <Button title="SignIn" onPress={() => signInEmailAndPassword("luis222222@mail.com", "12345678")} />
-    // </View>
-  <NavigationContainer>
-    <Stack.Navigator initialRoute={Login}>
-      <Stack.Screen name="Login" component={Login} />
-      {/* EN LAS OPCIONES DESHABILITO DARLE HACIA ATRAS */}
-      <Stack.Screen name="Home" component={HomeScreen} options={{
-            gestureEnabled: false,
-            headerShown: false,
-            headerLeft: () => <></>,
-          }}/>
-      <Stack.Screen name="MusicList" component={MusicList} />
-      <Stack.Screen name="PlayList" component={ViewPlayList} />
-      <Stack.Screen name="Register" component={Register} />
-    </Stack.Navigator>
-  </NavigationContainer>
+      dark ? 
+        <View style={styles.containerDark} signInGoogle={signInGoogle}>
+          <Login dark={dark}/>
+        </View>
+      :
+        <View style={styles.containerLight}>
+          <Login signInGoogle={signInGoogle}/>
+        </View>
   );
 }
 
 const styles = StyleSheet.create({
-  // containerLight: {
-  //   flex: 1,
-  //   backgroundColor: '#fff',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
-  // containerDark: {
-  //   flex: 1,
-  //   backgroundColor: '#000',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
+  containerLight: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  containerDark: {
+    flex: 1,
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
