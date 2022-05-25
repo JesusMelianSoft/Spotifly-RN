@@ -4,6 +4,9 @@ import auth from '@react-native-firebase/auth';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import Login from './Components/Login'
+import Register from './Components/Register'
+import HomeScreen from './Components/HomeScreen'
+import MusicList from './Components/MusicList'
 
 GoogleSignin.configure({
   webClientId: '244439246283-kla7jccifhs8iekmg0nusd5h2iqqh1dd.apps.googleusercontent.com',

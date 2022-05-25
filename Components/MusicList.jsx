@@ -2,6 +2,9 @@ import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet} from 're
 import React,  {useState} from 'react'
 import ViewMusic from './ViewMusic';
 import Navbar from './Navbar';
+
+
+
 const MusicList = ({route, navigation}) => {
     const {title, music} = route.params;
     const [myMusic, setMyMusic] = useState(music);
@@ -12,6 +15,11 @@ const MusicList = ({route, navigation}) => {
         //ME BUSCA LAS CANCIONES QUE CONTENGAN LO QUE HE ESCRITO
         const myFilter = music.filter(function (str) {return str.title.toLowerCase().includes(text); })
         //console.log("MI FILTRO", myFilter);
+        for (let i = 0; i < myFilter.length; i++) {
+            const element = myFilter[i].title;
+            console.log("MI FILTRO", element);
+            
+        }
         if(myFilter.length > 0) {
             setMyMusic(myFilter)
         }else{
@@ -32,10 +40,7 @@ const MusicList = ({route, navigation}) => {
             />
 
         </View>
-        {title ?
         <Text style={styles.text}>{title}</Text>
-        : null
-        }
         <Text style={styles.smallText}>{"Total: "+music.length+ " canciones"}</Text>
         <FlatList data={myMusic} renderItem={ itemData => {
             const { title, key} = itemData.item;
@@ -46,7 +51,6 @@ const MusicList = ({route, navigation}) => {
             )
           }
           }/>
-          {/* <Navbar /> */}
     </View>
   )
 }
