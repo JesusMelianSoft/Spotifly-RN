@@ -6,7 +6,7 @@ const options = {
   params: {key: '484129036', locale: 'en-US'},
   headers: {
     'X-RapidAPI-Host': 'shazam.p.rapidapi.com',
-    'X-RapidAPI-Key': 'bb2ba3ff71msh3d5a92c612504aap19fd7fjsn1845dfb55222'
+    'X-RapidAPI-Key': '80002b82edmsh39c97f6ce31fd65p13db9ajsn030511675541'
   }
 };
 

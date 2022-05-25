@@ -2,12 +2,10 @@ import { View, Text, Image, TextInput, TouchableOpacity, FlatList, StyleSheet} f
 import React,  {useState} from 'react'
 import ViewMusic from './ViewMusic';
 import Navbar from './Navbar';
-
 const MusicList = ({route, navigation}) => {
     const {title, music} = route.params;
     const [myMusic, setMyMusic] = useState(music);
     const [text, setText] = useState();
-
     const principalMusic = music;
     const searchMusic = (text) => {
         console.log("MY TEXTO", text)
@@ -33,7 +31,7 @@ const MusicList = ({route, navigation}) => {
             style={{ width: 24, height: 24, alignSelf: 'flex-end'}}
             source={require('../assets/images/search.png')}
             />
-            
+
         </View>
         {title ?
         <Text style={styles.text}>{title}</Text>
@@ -55,6 +53,7 @@ const MusicList = ({route, navigation}) => {
 }
 
 const styles = StyleSheet.create({
+
     textSearch: {
         width: '80%'
     },
@@ -72,6 +71,6 @@ const styles = StyleSheet.create({
         color: "#AF16C8",
         fontSize: 12
     },
-    
+
 })
 export default MusicList
