@@ -3,7 +3,6 @@ import React, {useState, useEffect} from 'react'
 import bd from '../PlayList/API/db';
 import playList from '../PlayList/defaultPlaylist';
 import ViewPlayList from './ViewPlayList';
-import Navbar from './Navbar';
 
 const HomeScreen = ({route, navigation}) => {
   const [music, setMusic] = useState();
@@ -55,7 +54,6 @@ const HomeScreen = ({route, navigation}) => {
             )
           }
           }/>
-          <Navbar navigation={navigation}/>
         {/* <Text>{music}</Text> */}
     </View>
   )
