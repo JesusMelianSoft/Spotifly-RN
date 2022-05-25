@@ -40,7 +40,11 @@ const MusicList = ({route, navigation}) => {
             source={require('../assets/images/search.png')}
             />
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> parent of 640801d (Revert "Features: adding styles from searchbar")
 =======
             
 >>>>>>> parent of 640801d (Revert "Features: adding styles from searchbar")
@@ -62,8 +66,11 @@ const MusicList = ({route, navigation}) => {
 
 const styles = StyleSheet.create({
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> parent of 640801d (Revert "Features: adding styles from searchbar")
 =======
 >>>>>>> parent of 640801d (Revert "Features: adding styles from searchbar")
     textSearch: {
